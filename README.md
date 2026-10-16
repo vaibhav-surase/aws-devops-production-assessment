@@ -7,10 +7,15 @@ I created a small Flask application and set up a CI/CD workflow to test the code
 # What I Did
 
  Created a Flask app with a home page and health-check endpoint.
+ 
  Wrote unit tests using Pytest.
+ 
  Used GitHub Actions to run tests and build the Docker image.
+ 
  Configured AWS ECR to store the image.
+ 
  Deployed the application using Kubernetes manifests.
+ 
  Checked that both application endpoints were working.
 
 # Tools
