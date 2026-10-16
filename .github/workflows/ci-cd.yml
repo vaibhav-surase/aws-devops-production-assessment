@@ -1,3 +1,4 @@
+
 name: DevOps CI/CD Pipeline
 
 on:
@@ -8,6 +9,11 @@ on:
 
 permissions:
   contents: read
+  id-token: write
+
+env:
+  AWS_REGION: ap-south-1
+  ECR_REPOSITORY: devops-assessment-app
 
 jobs:
   test:
@@ -33,8 +39,8 @@ jobs:
       - name: Run Tests
         run: pytest -v
 
-  docker-build:
-    name: Build Docker Image
+  build-and-push:
+    name: Build and Push to Amazon ECR
     runs-on: ubuntu-latest
     needs: test
 
@@ -42,8 +48,22 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
-      - name: Build Docker Image
+      - name: Configure AWS Credentials with OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::470451076070:role/GitHubActionsECRPushRole
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build, Tag and Push Docker Image
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
-          docker build \
-            -t devops-assessment-app:${{ github.sha }} \
-            .
+          docker build -t $REGISTRY/$ECR_REPOSITORY:${{ github.sha }} .
+          docker push $REGISTRY/$ECR_REPOSITORY:${{ github.sha }}
+          docker tag $REGISTRY/$ECR_REPOSITORY:${{ github.sha }} $REGISTRY/$ECR_REPOSITORY:latest
+          docker push $REGISTRY/$ECR_REPOSITORY:latest
+
