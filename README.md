@@ -1,4 +1,4 @@
-# DevOps CI/CD Assessment 
+# Task 1: DevOps CI/CD Assessment 
 
 # About
 
@@ -94,3 +94,88 @@ Python, Flask, Pytest, Docker, GitHub Actions, AWS ECR, Kubernetes, Minikube.
 Final Result
 
 I was able to test the application, push its Docker image to ECR, and run it successfully on Kubernetes.
+
+
+# Task 3: AWS Auto Scaling Group and Application Load Balancer
+
+## Objective
+Deploy a highly available web application using an Application Load Balancer (ALB), an Auto Scaling Group (ASG), and EC2 instances.
+
+## AWS Resources
+VPC and public subnets across two Availability Zones
+
+Internet Gateway and route table
+
+Security Groups for ALB and EC2 instances
+
+EC2 Launch Template
+
+Application Load Balancer
+
+Target Group with HTTP health checks
+
+Auto Scaling Group with desired capacity 2
+
+Target tracking scaling policy with average CPU utilization of 70%
+
+## Implementation
+1. Created the VPC, subnets, Internet Gateway, and route table.
+2. Configured Security Groups for the ALB and EC2 instances.
+3. Created a Launch Template with Amazon Linux 2023 and Apache web server user data.
+4. Created a Target Group with HTTP health checks on port 80.
+5. Created an internet-facing Application Load Balancer.
+6. Attached the Target Group to an Auto Scaling Group.
+7. Configured the ASG capacity and CPU target tracking policy.
+8. Tested the application through the ALB DNS name.
+9. Checked target health and reviewed ASG Activity History during replacement testing.
+
+## Evidence
+Screenshots 
+Created the VPC for the ASG and ALB setup.
+<img width="1347" height="354" alt="3 1 devops-asg-vpc" src="https://github.com/user-attachments/assets/ebddccfc-6b41-480f-bb6e-75eff0c356ee" />
+
+
+Created two subnets in different Availability Zones.
+<img width="1363" height="355" alt="3 2 subnet" src="https://github.com/user-attachments/assets/47c160e7-ab0c-4b5c-9634-c1badaf63300" />
+
+
+Attached the Internet Gateway to the VPC.
+<img width="1360" height="241" alt="3 3 Internet Gateway attached" src="https://github.com/user-attachments/assets/9eac5ba1-6ee1-41a5-bcf9-be414e9d8abe" />
+
+Configured the route table and subnet associations.
+<img width="1346" height="585" alt="3 4 Route table and subnet associations" src="https://github.com/user-attachments/assets/e1fcf797-6ab8-48e3-9cf8-2ca990c71ae1" />
+
+Created Security Groups for the ALB and EC2 instances.
+<img width="1352" height="267" alt="3 5Both Security Groups in same VPC" src="https://github.com/user-attachments/assets/8a332c53-59ef-4756-ad1d-35cc5e7e1ef2" />
+
+Created the EC2 Launch Template with Amazon Linux 2023 and Apache user data.
+<img width="1347" height="590" alt="3 6Launch Template created" src="https://github.com/user-attachments/assets/ad2b5435-e367-4c1e-8200-56a9d8f1edcd" />
+
+Created the Target Group with HTTP health checks.
+<img width="1348" height="572" alt="3 7 Target Group created" src="https://github.com/user-attachments/assets/16e4a098-2c19-4957-bade-2e2f5983323d" />
+
+Created the internet-facing Application Load Balancer.
+<img width="1347" height="583" alt="3 8 ALB Active" src="https://github.com/user-attachments/assets/29b40270-c3bc-414f-b528-bc28a70e749a" />
+
+Configured the Auto Scaling Group capacity.
+<img width="1361" height="200" alt="3 9 ASG launch " src="https://github.com/user-attachments/assets/be384c40-1810-4363-8a8a-4cce7340e963" />
+
+Verified instance launch events in ASG Activity History.
+Configured CPU target tracking at 70%.
+<img width="1338" height="598" alt="3 10 CPU target tracking set to 70%" src="https://github.com/user-attachments/assets/d88d3ce5-6687-4e38-bbf7-61d3af8a1a72" />
+
+Verified web application access using the ALB DNS name.
+<img width="1362" height="105" alt="3 11Website accessible through ALB DNS" src="https://github.com/user-attachments/assets/6654aa8f-f173-4135-ae51-d83c3e90da72" />
+
+Verified healthy targets in the Target Group.
+<img width="1350" height="602" alt="3 12 Two healthy targets" src="https://github.com/user-attachments/assets/e8700ba0-276c-4e75-9c12-2216d5a884ff" />
+
+Captured target health status during replacement testing.
+<img width="1118" height="341" alt="3 13 Unhealthy health-check evidence" src="https://github.com/user-attachments/assets/b58482ed-df2b-4ab0-bbec-09c625df1699" />
+
+Verified the replacement instance became healthy.
+<img width="1122" height="392" alt="3 14 — Replacement target healthy" src="https://github.com/user-attachments/assets/19640899-0392-448e-88d6-e63b184a33ec" />
+
+
+## Result
+The application was accessible through the ALB, and the Auto Scaling Group maintained the configured capacity. Scaling and replacement evidence is documented using the actual AWS console results.
