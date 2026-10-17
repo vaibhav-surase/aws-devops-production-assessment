@@ -112,7 +112,9 @@ Host a static website using Amazon S3 and configure Amazon CloudFront as a conte
 
 ## AWS Services
 Amazon S3
+
 Amazon CloudFront
+
 AWS Support for account verification
 
 ## Implementation
