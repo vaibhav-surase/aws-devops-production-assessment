@@ -1,3 +1,10 @@
+# AWS DevOps Production Assessment
+
+This repository contains three tasks covering CI/CD automation, S3 and CloudFront static hosting, and AWS Auto Scaling with an Application Load Balancer.
+
+**Note:** Task 2 is partially completed due to pending AWS account verification.
+
+
 # Task 1: DevOps CI/CD Assessment 
 
 # About
@@ -94,6 +101,69 @@ Python, Flask, Pytest, Docker, GitHub Actions, AWS ECR, Kubernetes, Minikube.
 Final Result
 
 I was able to test the application, push its Docker image to ECR, and run it successfully on Kubernetes.
+
+
+
+
+# Task 2: Amazon S3 and CloudFront
+
+## Objective
+Host a static website using Amazon S3 and configure Amazon CloudFront as a content delivery network (CDN), with restricted direct access to the S3 bucket.
+
+## AWS Services
+Amazon S3
+Amazon CloudFront
+AWS Support for account verification
+
+## Implementation
+
+1. Created an S3 bucket named `vaibhav-cloudfront-static-demo-2026` in the Mumbai region (`ap-south-1`).
+2. Kept the S3 bucket private with Block Public Access enabled.
+3. Uploaded the static website's `index.html` file to the S3 bucket.
+4. Started configuring a CloudFront distribution using the S3 bucket as the origin.
+5. Selected the recommended private S3 origin access configuration.
+6. CloudFront distribution creation was blocked by an AWS account verification requirement.
+
+## Screenshots and Evidence
+
+| Screenshot | Description |
+
+SS-01 Created the S3 bucket in the Mumbai AWS region. 
+<img width="1348" height="626" alt="2 1 Bucket creataed" src="https://github.com/user-attachments/assets/9152a632-b92d-4257-bc1b-60e21adb462f" />
+
+SS-02 Uploaded the static website's `index.html` object to the S3 bucket. 
+<img width="1359" height="589" alt="2 2Object Uploaded " src="https://github.com/user-attachments/assets/2969cf26-3c30-40cc-b1cc-599f7547dcff" />
+
+SS-03 CloudFront distribution creation blocked by the AWS account verification requirement. 
+<img width="1350" height="599" alt="2 3 CloudFront_Account_Verification_Error" src="https://github.com/user-attachments/assets/0e373459-b151-4b16-afdf-3c88a7fbc62c" />
+
+
+## Current Status
+
+**Partially Completed — CloudFront verification pending.**
+
+The S3 bucket was created and the website object was uploaded. CloudFront distribution creation could not be completed because AWS requires account verification.
+
+## Pending Work
+
+Resolve the AWS account verification requirement through AWS Support.
+
+Create the CloudFront distribution with private S3 origin access.
+
+Configure and verify the default root object (`index.html`).
+
+Test website access through the CloudFront distribution domain.
+
+Verify that direct public access to the S3 bucket is restricted.
+
+Perform a CloudFront cache invalidation and capture the result.
+
+## Expected Outcome
+
+Serve the static website through CloudFront while keeping the S3 bucket private. These final steps remain pending until the account verification restriction is resolved.
+
+
+
 
 
 # Task 3: AWS Auto Scaling Group and Application Load Balancer
