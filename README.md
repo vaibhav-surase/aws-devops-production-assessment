@@ -44,6 +44,13 @@ Python, Flask, Pytest, Docker, GitHub Actions, AWS ECR, Kubernetes, Minikube.
 <img width="758" height="225" alt="1 25 final project tree" src="https://github.com/user-attachments/assets/b4351406-ed68-4355-b822-5d12ef316748" />
 
 
+### Versions
+<img width="721" height="310" alt="1 version" src="https://github.com/user-attachments/assets/d9ff61ee-f90c-4aed-af0c-027ec819cf83" />
+
+### Project Directory Created
+<img width="942" height="118" alt="1 2 project Dir" src="https://github.com/user-attachments/assets/420f4a74-f267-4dad-bc46-bda9c5b1c8c9" />
+
+
 ### Tests
 [Pytest Passed]
 
