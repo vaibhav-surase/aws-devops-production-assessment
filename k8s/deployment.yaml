@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
         - name: app
-          image: IMAGE_PLACEHOLDER
+          image: 470451076070.dkr.ecr.ap-south-1.amazonaws.com/devops-assessment-app:latest
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5000
           readinessProbe:
