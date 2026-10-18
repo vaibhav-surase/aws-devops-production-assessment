@@ -67,3 +67,52 @@ jobs:
           docker tag $REGISTRY/$ECR_REPOSITORY:${{ github.sha }} $REGISTRY/$ECR_REPOSITORY:latest
           docker push $REGISTRY/$ECR_REPOSITORY:latest
 
+
+
+  deploy:
+    name: Deploy to Kubernetes (kind)
+    runs-on: ubuntu-latest
+    needs: build-and-push
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials with OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::470451076070:role/GitHubActionsECRPushRole
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Create Kubernetes cluster (kind)
+        uses: helm/kind-action@v1
+        with:
+          cluster_name: ci
+
+      - name: Pull image from ECR and load into cluster
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        run: |
+          IMAGE=$REGISTRY/$ECR_REPOSITORY:${{ github.sha }}
+          docker pull $IMAGE
+          kind load docker-image $IMAGE --name ci
+          echo "IMAGE=$IMAGE" >> $GITHUB_ENV
+
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f k8s/
+          kubectl set image deployment/devops-assessment-app app=$IMAGE
+          kubectl rollout status deployment/devops-assessment-app --timeout=180s
+          kubectl get pods -o wide
+          kubectl get deployment devops-assessment-app -o jsonpath='{.spec.template.spec.containers[0].image}{"\n"}'
+
+      - name: Smoke test
+        run: |
+          kubectl port-forward svc/devops-assessment-service 8082:80 &
+          sleep 5
+          curl -f http://localhost:8082/
+          curl -f http://localhost:8082/health
